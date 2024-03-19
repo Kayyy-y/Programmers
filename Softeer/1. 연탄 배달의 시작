@@ -1,0 +1,37 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        int n = Integer.parseInt(br.readLine());
+
+        String[] strCity = br.readLine().split(" ");
+
+        List<Integer> city = new ArrayList<>();
+        for(int i = 0; i < n; i++){
+            city.add(Integer.parseInt(strCity[i]));
+        }
+
+        // 인접한 도시 사이의 거리를 다 구함. 총 길이는 도시의 수 -1개
+        List<Integer> diff = new ArrayList<>();
+
+        for(int i = 1; i < n; i++){
+            diff.add(city.get(i) - city.get(i-1));
+        }
+        // 정렬 시, 제일 앞에 있는 수가 최소값!
+        Collections.sort(diff);
+
+        // 최소값은 무조건 존재함 => 한 곳은 감
+        int cnt = 1;
+        for(int check = 0; check < diff.size()-1; check++){
+             if (diff.get(check).equals(diff.get(check + 1))) {
+                cnt++;
+            } else break;
+        }
+
+        System.out.println(cnt);
+    }
+}
