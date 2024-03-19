@@ -1,0 +1,38 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        String[] tokens = br.readLine().split(" ");
+        int a = Integer.parseInt(tokens[0]);
+        int b = Integer.parseInt(tokens[1]);
+        int d = Integer.parseInt(tokens[2]);
+
+        int answer = 0;
+
+        // 기본 식: (a+b) * (d/a) + d%a + (a*b) * (d/b) + d%b
+        // 정리: (a+b) * (d/a + d/b) + d%a + d%b
+
+        // 전체 거리보다 갈 수 있는 거리가 더 먼 경우, 술래가 뒤도는 것을 기다릴 필요 없음. 이 경우 걸리는 시간은 전체 거리와 같음
+        if(a >= d){
+        // b보다 a가 같거나 작다고 명시했으므로 이중 for문
+            if(b >= d){
+                // a와 b 둘 다 전체 거리보다 긴 경우
+                answer += 2 * d;
+            }
+            // a만 전체 거리보다 긴 경우
+            answer += d + (a+b) * (d/b);
+            // 일반적인 경우
+        } else answer += (d/a + d/b) * (a+b);
+
+        // 터치 직전, 골인 직전
+        answer += d%a + d%b;
+        
+        System.out.println(answer);
+        
+        
+    }
+}
