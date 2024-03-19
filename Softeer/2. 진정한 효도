@@ -1,0 +1,67 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        List<Integer> answer = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        
+         int arr[][] = new int[3][3];
+
+        for(int i = 0; i < 3; i++){
+            StringTokenizer st = new StringTokenizer(reader.readLine());
+            for(int j = 0; j < 3; j++){
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
+
+        // idea 1. 가로 세줄, 세로 세줄 총 6개의 경우의 수 밖에 없음 => 가능한 모든 경우의 수를 탐색
+        // idea 2. 세 개의 공간, 1~3의 높이인 경우 가능한 수는 3가지
+            // case 1) 세 곳 모두 높이가 같음 => 농사 가능! (0)
+            // case 2) 한 곳만 높이가 다름 => 나머지 두 곳과의 차이가 가장 적게 일할 수 있는 결과값
+            // case 3) 세 곳 모두 다름 => 2로 맞추면 되므로 노력의 최소값은 2로 고정
+        
+        // case 2일 경우를 대비해 인접한 두 곳의 차이를 미리 계산
+        int diff1, diff2;
+        // Set를 사용해서 한 줄에 존재하는 높이의 개수를 파악 (Set는 중복값이 들어가지 않음)
+        Set<Integer> checkset = new HashSet<Integer>();
+
+        // check horizontal
+        for(int i = 0; i < 3; i++){
+            checkset.clear();
+            for(int j = 0; j < 3; j++){
+                checkset.add(arr[i][j]);
+            }
+            diff1 = 0; diff2 = 0;
+            diff1 = Math.abs(arr[i][0] - arr[i][1]);
+            diff2 = Math.abs(arr[i][1] - arr[i][2]);
+
+            // case 입력
+            if(checkset.size() == 1) answer.add(0);
+            else if(checkset.size() == 3) answer.add(2);
+            else answer.add(diff1 == 0 ? diff2 : diff1);
+        }
+
+        // check vertical
+        for(int i = 0; i < 3; i++){
+            checkset.clear();
+            for(int j = 0; j < 3; j++){
+                checkset.add(arr[j][i]);
+            }
+            diff1 = 0; diff2 = 0;
+            diff1 = Math.abs(arr[0][i] - arr[1][i]);
+            diff2 = Math.abs(arr[1][i] - arr[2][i]);
+
+            // case 입력
+            if(checkset.size() == 1) answer.add(0);
+            else if(checkset.size() == 3) answer.add(2);
+            else answer.add(diff1 == 0 ? diff2 : diff1);
+        }
+        
+        // sort하면 최소값이 제일 앞에 옴!
+        Collections.sort(answer);
+
+        System.out.print(answer.get(0)); 
+    }
+}
