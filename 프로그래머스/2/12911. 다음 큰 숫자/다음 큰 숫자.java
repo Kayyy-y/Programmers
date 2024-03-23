@@ -1,4 +1,5 @@
 class Solution {
+    // 1 개수를 체크
     private static int checkCnt1(String num){
         int cnt= 0;
 
@@ -9,8 +10,14 @@ class Solution {
         return cnt;
     }
     public int solution(int n) {
-        
+//////// 정확성은 맞는데 효율성에서 탈락한 코드 ////////
+        // 두개면 별다른 조건 없이 4 출력
 //         if(n == 2) return 4;
+
+        // 1) 전체에서 __01__의 형태가 나오는 지점 찾기
+        // 2) __01__을 기준으로 두 파트로 나눔(start, end)
+            // a) 01파트가 없는 경우(check == -1) : end 파트의 1 개수를 참고해 총 길이가 +1이 되도록 구성
+        // 3) 01을 10으로 변경, start는 그대로/end는 1의 개수를 그대로 유지하되 가장 작은 값을 입력
         
 //         String binary = Integer.toBinaryString(n);
 //         int totalCnt1 = 0;
@@ -52,7 +59,11 @@ class Solution {
 //         int answer = Integer.parseInt(start + mid + end, 2);
 
 //         return answer;
-        
+
+
+        // 간단한 풀이!
+        // 생각보다 다음 큰 숫자 사이의 갭이 크지 않을 것이다
+        // 그렇다면 1씩 올리면서 그냥 2진수 변환시 1의 개수를 확인하면 되는거 아닐까?
         String binary = Integer.toBinaryString(n);
         int Cnt1 = 0;
 
