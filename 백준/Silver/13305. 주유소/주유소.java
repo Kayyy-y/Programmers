@@ -9,24 +9,24 @@ public class Main {
         
         int N = Integer.parseInt(st.nextToken());
         
-        int[] between = new int[N - 1];
-        int[] station = new int[N];
+        long[] between = new long[N - 1];
+        long[] station = new long[N];
         boolean[] buy = new boolean[N];
-        int minPrice = Integer.MAX_VALUE;
+        long minPrice = Long.MAX_VALUE;
         
         st = new StringTokenizer(br.readLine());
-        for(int i = 0; i < N - 1; i++) between[i] = Integer.parseInt(st.nextToken());
+        for(int i = 0; i < N - 1; i++) between[i] = Long.parseLong(st.nextToken());
         st = new StringTokenizer(br.readLine());
         for(int i = 0; i < N - 1; i++) {
-            station[i] = Integer.parseInt(st.nextToken());
+            station[i] = Long.parseLong(st.nextToken());
             if(station[i] < minPrice) {
                 minPrice = station[i];
                 buy[i] = true;
             }
         }
         
-        int answer = 0;
-        int road = 0;
+        long answer = 0;
+        long road = 0;
         
         for(int i = N - 2; i >= 0; i--) {
             road += between[i];
